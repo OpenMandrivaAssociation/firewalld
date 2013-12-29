@@ -1,8 +1,8 @@
-Summary:	A firewall daemon with D-BUS interface providing a dynamic firewall
+Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.3.4
+Version:	0.3.8
 Release:	1
-URL:		http://fedorahosted.org/firewalld
+URL:		https://fedorahosted.org/firewalld/
 License:	GPLv2+
 Group:		System/Base
 Source0:	https://fedorahosted.org/released/firewalld/%{name}-%{version}.tar.bz2
@@ -17,11 +17,12 @@ BuildRequires:	docbook-style-xsl
 Requires:	dbus-python
 Requires:	python-slip-dbus >= 0.2.7
 Requires:	python-decorator
-Requires:	iptables, ebtables
+Requires:	iptables
+#Requires:	ebtables
+Requires(post,preun): rpm-helper
 
 %description
-firewalld is a firewall service daemon that provides a dynamic customizable 
-firewall with a D-BUS interface.
+A firewall service daemon with D-BUS interface managing a dynamic firewall.
 
 %package -n	firewall-applet
 Summary:	Firewall panel applet
@@ -51,7 +52,9 @@ firewalld.
 %patch0 -p1
 
 %build
-%configure2_5x --enable-sysconfig --with-systemd-unitdir=%{_unitdir}
+%configure2_5x \
+		--enable-sysconfig \
+        --with-systemd-unitdir=%{_unitdir}
 
 %install
 %makeinstall_std
@@ -59,6 +62,7 @@ firewalld.
 desktop-file-install --delete-original \
   --dir %{buildroot}%{_sysconfdir}/xdg/autostart \
   %{buildroot}%{_sysconfdir}/xdg/autostart/firewall-applet.desktop
+
 desktop-file-install --delete-original \
   --dir %{buildroot}%{_datadir}/applications \
   %{buildroot}%{_datadir}/applications/firewall-config.desktop
@@ -66,10 +70,13 @@ desktop-file-install --delete-original \
 %find_lang %{name} --all-name
 
 %post
-%post_service %{name}.service
+%systemd_post firewalld.service
 
 %preun
-%preun_service %{name}.service
+%systemd_preun firewalld.service
+
+%postun
+%systemd_postun_with_restart firewalld.service
 
 %files -f %{name}.lang
 %doc COPYING README
