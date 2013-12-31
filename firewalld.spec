@@ -6,6 +6,7 @@ URL:		https://fedorahosted.org/firewalld/
 License:	GPLv2+
 Group:		System/Base
 Source0:	https://fedorahosted.org/released/firewalld/%{name}-%{version}.tar.bz2
+Source1:	firewalld.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
 BuildArch:	noarch
 BuildRequires:	desktop-file-utils
