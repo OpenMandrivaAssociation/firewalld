@@ -1,7 +1,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.3.8
-Release:	2
+Version:	0.3.9
+Release:	1
 URL:		https://fedorahosted.org/firewalld/
 License:	GPLv2+
 Group:		System/Base
