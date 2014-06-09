@@ -1,7 +1,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.3.9
-Release:	2
+Version:	0.3.10
+Release:	1
 URL:		https://fedorahosted.org/firewalld/
 License:	GPLv2+
 Group:		System/Base
@@ -132,4 +132,7 @@ desktop-file-install --delete-original \
 %{_datadir}/applications/firewall-config.desktop
 %{_datadir}/icons/hicolor/*/apps/firewall-config*.*
 %{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallConfig.gschema.xml
+%{_datadir}/appdata/firewall-config.appdata.xml
+%{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.desktop.policy
+%{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.server.policy
 %{_mandir}/man1/firewall-config*.1*
