@@ -58,7 +58,7 @@ firewalld.
 		--enable-sysconfig \
         --with-systemd-unitdir=%{_unitdir}
 
-%make
+# no make
 
 %install
 %makeinstall_std
