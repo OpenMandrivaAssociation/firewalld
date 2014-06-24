@@ -20,7 +20,7 @@ Requires:	python-slip-dbus >= 0.2.7
 Requires:	python-decorator
 Requires:	iptables
 #Requires:	ebtables
-Requires(post,preun): rpm-helper
+Requires(post,preun):	rpm-helper
 
 %description
 A firewall service daemon with D-BUS interface managing a dynamic firewall.
@@ -54,9 +54,11 @@ firewalld.
 %patch0 -p1
 
 %build
-%configure2_5x \
+%configure \
 		--enable-sysconfig \
         --with-systemd-unitdir=%{_unitdir}
+
+%make
 
 %install
 %makeinstall_std
