@@ -15,6 +15,7 @@ BuildRequires:	intltool
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	systemd-units
 BuildRequires:	docbook-style-xsl
+BuildRequires:	pkgconfig(python3)
 Requires:	python-dbus
 Requires:	python-slip-dbus >= 0.2.7
 Requires:	python-decorator
