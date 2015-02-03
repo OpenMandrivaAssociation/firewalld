@@ -1,6 +1,2 @@
-removed_sources:
-  firewalld-0.3.10.tar.bz2: b803019884cc1a230ed74a40b6592e7b51e139f7
-  firewalld-0.3.8.tar.bz2: b67642886fefe0549b227d6e5f2455008c129ccc
-  firewalld-0.3.9.tar.bz2: 0de44ae75f7d0aad3234e9cffbcfcb6067bf1a59
 sources:
-  firewalld-0.3.12.tar.bz2: 265fab1899b600f9f1dead109ef5d53143aba6cb
+  firewalld-0.3.13.tar.bz2: afc1ba1f386bdf7c4a6d651c32aea129329ecdf6
