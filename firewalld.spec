@@ -8,6 +8,7 @@ Group:		System/Base
 Source0:	https://fedorahosted.org/released/firewalld/%{name}-%{version}.tar.bz2
 Source1:	firewalld.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
+Patch1:		firewalld-0.3.13-python3.patch
 BuildArch:	noarch
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -54,6 +55,7 @@ firewalld.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %configure \
@@ -99,6 +101,7 @@ desktop-file-install --delete-original \
 %{_prefix}/lib/firewalld/icmptypes/*.xml
 %{_prefix}/lib/firewalld/services/*.xml
 %{_prefix}/lib/firewalld/zones/*.xml
+%{_prefix}/lib/firewalld/xmlschema/*.xsd
 %dir %{_sysconfdir}/firewalld
 %config(noreplace) %{_sysconfdir}/firewalld/firewalld.conf
 %config(noreplace) %{_sysconfdir}/firewalld/lockdown-whitelist.xml
