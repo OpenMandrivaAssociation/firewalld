@@ -1,7 +1,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
 Version:	0.3.13
-Release:	1
+Release:	2
 URL:		https://fedorahosted.org/firewalld/
 License:	GPLv2+
 Group:		System/Base
@@ -21,7 +21,7 @@ Requires:	python3-dbus
 Requires:	python-slip-dbus >= 0.2.7
 Requires:	python-decorator
 Requires:	iptables
-#Requires:	ebtables
+Requires:	ebtables
 Requires(post,preun):	rpm-helper
 
 %description
@@ -77,15 +77,6 @@ desktop-file-install --delete-original \
 
 
 %find_lang %{name} --all-name
-
-%post
-%systemd_post firewalld.service
-
-%preun
-%systemd_preun firewalld.service
-
-%postun
-%systemd_postun_with_restart firewalld.service
 
 %files -f %{name}.lang
 %doc COPYING README
