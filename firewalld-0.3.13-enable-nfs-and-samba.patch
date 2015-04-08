@@ -1,6 +1,6 @@
 diff -Naur firewalld-0.3.13/config/zones/home.xml firewalld-0.3.13.tpg/config/zones/home.xml
 --- firewalld-0.3.13/config/zones/home.xml	2014-12-03 13:35:58.000000000 +0000
-+++ firewalld-0.3.13.tpg/config/zones/home.xml	2015-04-08 17:09:15.275951331 +0000
++++ firewalld-0.3.13.tpg/config/zones/home.xml	2015-04-08 17:54:58.956554258 +0000
 @@ -4,6 +4,8 @@
    <description>For use in home areas. You mostly trust the other computers on networks to not harm your computer. Only selected incoming connections are accepted.</description>
    <service name="ssh"/>
@@ -12,7 +12,7 @@ diff -Naur firewalld-0.3.13/config/zones/home.xml firewalld-0.3.13.tpg/config/zo
  </zone>
 diff -Naur firewalld-0.3.13/config/zones/internal.xml firewalld-0.3.13.tpg/config/zones/internal.xml
 --- firewalld-0.3.13/config/zones/internal.xml	2014-12-03 13:35:58.000000000 +0000
-+++ firewalld-0.3.13.tpg/config/zones/internal.xml	2015-04-08 17:09:30.916374326 +0000
++++ firewalld-0.3.13.tpg/config/zones/internal.xml	2015-04-08 17:56:11.786508841 +0000
 @@ -4,6 +4,8 @@
    <description>For use on internal networks. You mostly trust the other computers on the networks to not harm your computer. Only selected incoming connections are accepted.</description>
    <service name="ssh"/>
@@ -23,13 +23,26 @@ diff -Naur firewalld-0.3.13/config/zones/internal.xml firewalld-0.3.13.tpg/confi
    <service name="dhcpv6-client"/>
  </zone>
 diff -Naur firewalld-0.3.13/config/zones/public.xml firewalld-0.3.13.tpg/config/zones/public.xml
---- firewalld-0.3.13/config/zones/public.xml	2014-07-23 17:00:39.000000000 +0000
-+++ firewalld-0.3.13.tpg/config/zones/public.xml	2015-04-08 17:09:53.266978810 +0000
-@@ -4,4 +4,7 @@
+--- firewalld-0.3.13/config/zones/public.xml	2015-04-08 17:44:54.000000000 +0000
++++ firewalld-0.3.13.tpg/config/zones/public.xml	2015-04-08 17:54:30.429788906 +0000
+@@ -4,5 +4,8 @@
    <description>For use in public areas. You do not trust the other computers on networks to not harm your computer. Only selected incoming connections are accepted.</description>
    <service name="ssh"/>
-   <service name="dhcpv6-client"/>
+   <service name="mdns"/>
 +  <service name="nfs"/>
 +  <service name="samba"/>
 +  <service name="samba-client"/>
+   <service name="dhcpv6-client"/>
+ </zone>
+diff -Naur firewalld-0.3.13/config/zones/work.xml firewalld-0.3.13.tpg/config/zones/work.xml
+--- firewalld-0.3.13/config/zones/work.xml	2015-04-08 17:44:54.000000000 +0000
++++ firewalld-0.3.13.tpg/config/zones/work.xml	2015-04-08 17:55:54.795052755 +0000
+@@ -4,5 +4,8 @@
+   <description>For use in work areas. You mostly trust the other computers on networks to not harm your computer. Only selected incoming connections are accepted.</description>
+   <service name="ssh"/>
+   <service name="mdns"/>
++  <service name="nfs"/>
++  <service name="samba"/>
++  <service name="samba-client"/>
+   <service name="dhcpv6-client"/>
  </zone>
