@@ -1,14 +1,13 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.3.13
-Release:	4
+Version:	0.3.14.2
+Release:	1
 URL:		https://fedorahosted.org/firewalld/
 License:	GPLv2+
 Group:		System/Base
 Source0:	https://fedorahosted.org/released/firewalld/%{name}-%{version}.tar.bz2
 Source1:	firewalld.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
-Patch1:		firewalld-0.3.13-python3.patch
 # (tpg) try to keep nfs and samba enabled for default zones
 Patch2:		firewalld-0.3.13-enable-nfs-and-samba.patch
 BuildArch:	noarch
@@ -129,7 +128,6 @@ desktop-file-install --delete-original \
 %{_bindir}/firewall-applet
 %{_sysconfdir}/xdg/autostart/firewall-applet.desktop
 %{_datadir}/icons/hicolor/*/apps/firewall-applet*.*
-%{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallApplet.gschema.xml
 %{_mandir}/man1/firewall-applet*.1*
 
 %files -n firewall-config
