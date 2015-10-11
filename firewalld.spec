@@ -1,7 +1,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
 Version:	0.3.14.2
-Release:	2
+Release:	3
 URL:		https://fedorahosted.org/firewalld/
 License:	GPLv2+
 Group:		System/Base
@@ -80,6 +80,10 @@ desktop-file-install --delete-original \
   --dir %{buildroot}%{_datadir}/applications \
   %{buildroot}%{_datadir}/applications/firewall-config.desktop
 
+#(tpg) fix bug #1327
+%if %mdvver >= 201500
+sed -i -e "s/kde-nm-connection-editor/kde5-nm-connection-editor/g" %{buildroot}%{_bindir}/firewall-applet
+%endif
 
 %find_lang %{name} --all-name
 
