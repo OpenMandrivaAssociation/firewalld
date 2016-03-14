@@ -1,7 +1,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
 Version:	0.3.14.2
-Release:	3
+Release:	4
 URL:		https://fedorahosted.org/firewalld/
 License:	GPLv2+
 Group:		System/Base
@@ -15,7 +15,7 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	intltool
 BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:	systemd-units
+BuildRequires:	systemd
 BuildRequires:	docbook-style-xsl
 BuildRequires:	pkgconfig(python3)
 Requires:	python3-dbus
