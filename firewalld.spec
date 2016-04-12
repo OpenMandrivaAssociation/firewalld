@@ -1,7 +1,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
 Version:	0.3.14.2
-Release:	5
+Release:	5.1
 URL:		https://fedorahosted.org/firewalld/
 License:	GPLv2+
 Group:		System/Base
@@ -35,6 +35,7 @@ Requires:	%{name} = %{EVRD}
 Requires:	firewall-config = %{EVRD}
 Requires:	hicolor-icon-theme
 Requires:	python-gobject3
+Requires:	typelib(Gtk)
 
 %description -n firewall-applet
 The firewall panel applet provides a status information of firewalld and also 
