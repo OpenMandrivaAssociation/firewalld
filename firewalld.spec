@@ -1,8 +1,8 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.3.14.2
-Release:	5.1
-URL:		https://fedorahosted.org/firewalld/
+Version:	0.4.1.2
+Release:	1
+URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
 Source0:	https://fedorahosted.org/released/firewalld/%{name}-%{version}.tar.bz2
@@ -18,11 +18,13 @@ BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	systemd
 BuildRequires:	docbook-style-xsl
 BuildRequires:	pkgconfig(python3)
+BuildRequires:	ipset
 Requires:	python3-dbus
 Requires:	python-slip-dbus >= 0.2.7
 Requires:	python-decorator
 Requires:	iptables >= 1.4.21-11
 Requires:	ebtables
+Requires:	ipset
 Requires(post,preun):	rpm-helper
 
 %description
@@ -108,9 +110,11 @@ sed -i -e "s/kde-nm-connection-editor/kde5-nm-connection-editor/g" %{buildroot}%
 %dir %{_prefix}/lib/firewalld/zones
 %dir %{_prefix}/lib/firewalld/xmlschema
 %{_prefix}/lib/firewalld/icmptypes/*.xml
+%{_prefix}/lib/firewalld/ipsets/README
 %{_prefix}/lib/firewalld/services/*.xml
 %{_prefix}/lib/firewalld/zones/*.xml
 %{_prefix}/lib/firewalld/xmlschema/*.xsd
+%{_prefix}/lib/firewalld/xmlschema/check.sh
 %dir %{_sysconfdir}/firewalld
 %config(noreplace) %{_sysconfdir}/firewalld/firewalld.conf
 %config(noreplace) %{_sysconfdir}/firewalld/lockdown-whitelist.xml
@@ -138,6 +142,7 @@ sed -i -e "s/kde-nm-connection-editor/kde5-nm-connection-editor/g" %{buildroot}%
 %files -n firewall-applet
 %{_bindir}/firewall-applet
 %{_sysconfdir}/xdg/autostart/firewall-applet.desktop
+%{_sysconfdir}/firewall/applet.conf
 %{_datadir}/icons/hicolor/*/apps/firewall-applet*.*
 %{_mandir}/man1/firewall-applet*.1*
 
