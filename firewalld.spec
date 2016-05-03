@@ -108,6 +108,7 @@ sed -i -e "s/kde-nm-connection-editor/kde5-nm-connection-editor/g" %{buildroot}%
 %{_datadir}/bash-completion/completions/firewall-cmd
 %dir %{_prefix}/lib/firewalld
 %dir %{_prefix}/lib/firewalld/icmptypes
+%dir %{_prefix}/lib/firewalld/ipsets
 %dir %{_prefix}/lib/firewalld/services
 %dir %{_prefix}/lib/firewalld/zones
 %dir %{_prefix}/lib/firewalld/xmlschema
