@@ -1,7 +1,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
 Version:	0.4.1.2
-Release:	1
+Release:	2
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
@@ -22,6 +22,7 @@ BuildRequires:	ipset
 BuildRequires:	iptables
 BuildRequires:	ebtables
 Requires:	python3-dbus
+Requires:	python-qt4
 Requires:	python-slip-dbus >= 0.2.7
 Requires:	python-decorator
 Requires:	iptables >= 1.4.21-11
