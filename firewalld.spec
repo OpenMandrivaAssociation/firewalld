@@ -1,7 +1,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.4.1.2
-Release:	2
+Version:	0.4.2
+Release:	1
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
@@ -33,7 +33,7 @@ Requires(post,preun):	rpm-helper
 %description
 A firewall service daemon with D-BUS interface managing a dynamic firewall.
 
-%package -n	firewall-applet
+%package -n firewall-applet
 Summary:	Firewall panel applet
 Group:		System/Base
 Requires:	%{name} = %{EVRD}
