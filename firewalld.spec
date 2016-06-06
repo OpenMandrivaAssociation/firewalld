@@ -5,8 +5,8 @@ Release:	1
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
-Source0:	https://fedorahosted.org/released/firewalld/%{name}-%{version}.tar.bz2
-Source1:	firewalld.rpmlintrc
+Source0:	https://fedorahosted.org/released/%{name}/%{name}-%{version}.tar.bz2
+Source1:	%{name}.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
 # (tpg) try to keep nfs and samba enabled for default zones
 Patch2:		firewalld-0.3.13-enable-nfs-and-samba.patch
@@ -43,7 +43,7 @@ Requires:	python-gobject3
 Requires:	typelib(Gtk)
 
 %description -n firewall-applet
-The firewall panel applet provides a status information of firewalld and also 
+The firewall panel applet provides a status information of %{name} and also 
 the firewall settings.
 
 %package -n firewall-config
@@ -57,7 +57,7 @@ Requires:	typelib(NetworkManager)
 
 %description -n firewall-config
 The firewall configuration application provides an configuration interface for 
-firewalld.
+%{name}.
 
 %prep
 %setup -q
@@ -102,33 +102,35 @@ sed -i -e "s/kde-nm-connection-editor/kde5-nm-connection-editor/g" %{buildroot}%
 %files -f %{name}.lang
 %doc COPYING README
 %{_presetdir}/86-firewalld.preset
-%{_sbindir}/firewalld
+%{_sbindir}/%{name}
 %{_bindir}/firewall-cmd
 %{_bindir}/firewall-offline-cmd
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/firewall-cmd
-%dir %{_prefix}/lib/firewalld
-%dir %{_prefix}/lib/firewalld/icmptypes
-%dir %{_prefix}/lib/firewalld/ipsets
-%dir %{_prefix}/lib/firewalld/services
-%dir %{_prefix}/lib/firewalld/zones
-%dir %{_prefix}/lib/firewalld/xmlschema
-%{_prefix}/lib/firewalld/icmptypes/*.xml
-%{_prefix}/lib/firewalld/ipsets/README
-%{_prefix}/lib/firewalld/services/*.xml
-%{_prefix}/lib/firewalld/zones/*.xml
-%{_prefix}/lib/firewalld/xmlschema/*.xsd
-%{_prefix}/lib/firewalld/xmlschema/check.sh
-%dir %{_sysconfdir}/firewalld
-%config(noreplace) %{_sysconfdir}/firewalld/firewalld.conf
-%config(noreplace) %{_sysconfdir}/firewalld/lockdown-whitelist.xml
-%dir %{_sysconfdir}/firewalld/icmptypes
-%dir %{_sysconfdir}/firewalld/services
-%dir %{_sysconfdir}/firewalld/zones
-%config(noreplace) %{_sysconfdir}/sysconfig/firewalld
-%{_unitdir}/firewalld.service
+%dir %{_prefix}/lib/%{name}
+%dir %{_prefix}/lib/%{name}/icmptypes
+%dir %{_prefix}/lib/%{name}/ipsets
+%dir %{_prefix}/lib/%{name}/services
+%dir %{_prefix}/lib/%{name}/zones
+%dir %{_prefix}/lib/%{name}/xmlschema
+%{_prefix}/lib/%{name}/icmptypes/*.xml
+%{_prefix}/lib/%{name}/ipsets/README
+%{_prefix}/lib/%{name}/services/*.xml
+%{_prefix}/lib/%{name}/zones/*.xml
+%{_prefix}/lib/%{name}/xmlschema/*.xsd
+%{_prefix}/lib/%{name}/xmlschema/check.sh
+%dir %{_sysconfdir}/%{name}
+%config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
+%config(noreplace) %{_sysconfdir}/%{name}/lockdown-whitelist.xml
+%dir %{_sysconfdir}/%{name}/icmptypes
+%dir %{_sysconfdir}/%{name}/services
+%dir %{_sysconfdir}/%{name}/zones
+%config(noreplace) %{_sysconfdir}/sysconfig/%{name}
+%{_unitdir}/%{name}.service
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/FirewallD.conf
 %{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.policy
+%dir %{_datadir}/%{name}/tests
+%{_datadir}/%{name}/tests/*.sh
 %dir %{python_sitelib}/firewall
 %dir %{python_sitelib}/firewall/config
 %dir %{python_sitelib}/firewall/core
@@ -140,7 +142,7 @@ sed -i -e "s/kde-nm-connection-editor/kde5-nm-connection-editor/g" %{buildroot}%
 %{python_sitelib}/firewall/core/io/*.py*
 %{python_sitelib}/firewall/server/*.py*
 %{_mandir}/man1/firewall*cmd*.1*
-%{_mandir}/man1/firewalld*.1*
+%{_mandir}/man1/%{name}*.1*
 %{_mandir}/man5/firewall*.5*
 
 %files -n firewall-applet
@@ -148,12 +150,13 @@ sed -i -e "s/kde-nm-connection-editor/kde5-nm-connection-editor/g" %{buildroot}%
 %{_sysconfdir}/xdg/autostart/firewall-applet.desktop
 %{_sysconfdir}/firewall/applet.conf
 %{_datadir}/icons/hicolor/*/apps/firewall-applet*.*
+%{_datadir}/%{name}/gtk3_niceexpander.py
 %{_mandir}/man1/firewall-applet*.1*
 
 %files -n firewall-config
 %{_bindir}/firewall-config
-%{_datadir}/firewalld/firewall-config.glade
-%{_datadir}/firewalld/gtk3_chooserbutton.py*
+%{_datadir}/%{name}/firewall-config.glade
+%{_datadir}/%{name}/gtk3_chooserbutton.py*
 %{_datadir}/applications/firewall-config.desktop
 %{_datadir}/icons/hicolor/*/apps/firewall-config*.*
 %{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallConfig.gschema.xml
