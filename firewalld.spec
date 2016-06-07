@@ -41,6 +41,7 @@ Requires:	firewall-config = %{EVRD}
 Requires:	hicolor-icon-theme
 Requires:	python-gobject3
 Requires:	typelib(Gtk)
+Requires:   typelib(NM)
 
 %description -n firewall-applet
 The firewall panel applet provides a status information of %{name} and also 
