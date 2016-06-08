@@ -1,7 +1,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
 Version:	0.4.2
-Release:	3
+Release:	4
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
@@ -10,12 +10,15 @@ Source1:	%{name}.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
 # (tpg) try to keep nfs and samba enabled for default zones
 Patch2:		firewalld-0.3.13-enable-nfs-and-samba.patch
+# (tpg) from upstream git
+# https://github.com/t-woerner/firewalld/issues/119
+Patch3:		0000-firewall.core.fw_nm-Hide-NM-typelib-import-new-nm_ge.patch
 BuildArch:	noarch
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	intltool
 BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:	systemd
+BuildRequires:	pkgconfig(libsystemd)
 BuildRequires:	docbook-style-xsl
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	ipset
@@ -41,7 +44,7 @@ Requires:	%{name} = %{EVRD}
 Requires:	firewall-config = %{EVRD}
 Requires:	hicolor-icon-theme
 Requires:	python-gobject3
-Requires:	typelib(Gtk)
+Requires:	typelib(Notify)
 
 %description -n firewall-applet
 The firewall panel applet provides a status information of %{name} and also 
@@ -54,6 +57,7 @@ Requires:	%{name} = %{EVRD}
 Requires:	hicolor-icon-theme
 Requires:	python-gobject3
 Requires:	python3-dbus
+Requires:	typelib(Gtk)
 Requires:	typelib(NetworkManager)
 
 %description -n firewall-config
