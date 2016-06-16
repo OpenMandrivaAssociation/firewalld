@@ -1,0 +1,11 @@
+diff -Naur firewalld-0.4.2/config/firewalld.service.in firewalld-0.4.2.tpg/config/firewalld.service.in
+--- firewalld-0.4.2/config/firewalld.service.in	2016-04-25 15:27:14.000000000 +0000
++++ firewalld-0.4.2.tpg/config/firewalld.service.in	2016-06-16 18:31:33.784526989 +0000
+@@ -12,6 +12,7 @@
+ EnvironmentFile=-/etc/sysconfig/firewalld
+ ExecStart=@sbindir@/firewalld --nofork --nopid $FIREWALLD_ARGS
+ ExecReload=/bin/kill -HUP $MAINPID
++ExecStartPost=@bindir@/firewall-cmd --reload --quiet
+ # supress to log debug and error output also to /var/log/messages
+ StandardOutput=null
+ StandardError=null
