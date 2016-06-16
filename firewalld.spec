@@ -1,13 +1,15 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
 Version:	0.4.2
-Release:	4
+Release:	5
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
 Source0:	https://fedorahosted.org/released/%{name}/%{name}-%{version}.tar.bz2
 Source1:	%{name}.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
+# (tpg) reload rules when firewalld service starts
+Patch1:		firewalld-0.4.2-reload-firewalld-rules-on-service-start.patch
 # (tpg) try to keep nfs and samba enabled for default zones
 Patch2:		firewalld-0.3.13-enable-nfs-and-samba.patch
 # (tpg) from upstream git
