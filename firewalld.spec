@@ -1,14 +1,20 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.3.13
-Release:	0.2
-URL:		https://fedorahosted.org/firewalld/
+Version:	0.4.2
+Release:	0.1
+URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
-Source0:	https://fedorahosted.org/released/firewalld/%{name}-%{version}.tar.bz2
-Source1:	firewalld.rpmlintrc
+Source0:	https://fedorahosted.org/released/%{name}/%{name}-%{version}.tar.bz2
+Source1:	%{name}.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
-Patch1:		firewalld-0.3.13-enable-nfs-and-samba.patch
+# (tpg) reload rules when firewalld service starts
+Patch1:		firewalld-0.4.2-reload-firewalld-rules-on-service-start.patch
+# (tpg) try to keep nfs and samba enabled for default zones
+Patch2:		firewalld-0.3.13-enable-nfs-and-samba.patch
+# (tpg) from upstream git
+# https://github.com/t-woerner/firewalld/issues/119
+Patch3:		0000-firewall.core.fw_nm-Hide-NM-typelib-import-new-nm_ge.patch
 BuildArch:	noarch
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -16,39 +22,49 @@ BuildRequires:	intltool
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	systemd-units
 BuildRequires:	docbook-style-xsl
+BuildRequires:	pkgconfig(python)
+BuildRequires:	ipset
+BuildRequires:	iptables
+BuildRequires:	ebtables
 Requires:	python-dbus
+Requires:	python-qt4
 Requires:	python-slip-dbus >= 0.2.7
 Requires:	python-decorator
-Requires:	iptables
-#Requires:	ebtables
-Requires(post,preun): rpm-helper
+Requires:	iptables >= 1.4.21-11
+Requires:	ebtables
+Requires:	ipset
+Requires:	typelib(NM)
+Requires(post,preun):	rpm-helper
 
 %description
 A firewall service daemon with D-BUS interface managing a dynamic firewall.
 
-%package -n	firewall-applet
+%package -n firewall-applet
 Summary:	Firewall panel applet
 Group:		System/Base
-Requires:	%{name} = %{version}-%{release}
-Requires:	firewall-config = %{version}-%{release}
+Requires:	%{name} = %{EVRD}
+Requires:	firewall-config = %{EVRD}
 Requires:	hicolor-icon-theme
 Requires:	python3-gobject3
+Requires:	typelib(Notify)
 
 %description -n firewall-applet
-The firewall panel applet provides a status information of firewalld and also 
+The firewall panel applet provides a status information of %{name} and also 
 the firewall settings.
 
 %package -n firewall-config
 Summary:	Firewall configuration application
 Group:		System/Base
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{EVRD}
 Requires:	hicolor-icon-theme
 Requires:	python3-gobject3
+Requires:	python-dbus
+Requires:	typelib(Gtk)
 Requires:	typelib(NetworkManager)
 
 %description -n firewall-config
 The firewall configuration application provides an configuration interface for 
-firewalld.
+%{name}.
 
 %prep
 %setup -q
@@ -56,8 +72,10 @@ firewalld.
 
 %build
 %configure2_5x \
-	--enable-sysconfig \
-        --with-systemd-unitdir=%{_unitdir}
+    --enable-sysconfig \
+    --with-systemd-unitdir=%{_unitdir}
+
+# no make
 
 %install
 %makeinstall_std
@@ -77,41 +95,44 @@ desktop-file-install --delete-original \
 
 %find_lang %{name} --all-name
 
-%post
-%systemd_post firewalld.service
+%triggerposttransin -- %{_prefix}/lib/firewalld/services/*.xml
+%{_bindir}/firewall-cmd --reload --quiet || :
 
-%preun
-%systemd_preun firewalld.service
-
-%postun
-%systemd_postun_with_restart firewalld.service
+%triggerposttransun -- %{_prefix}/lib/firewalld/services/*.xml
+%{_bindir}/firewall-cmd --reload --quiet || :
 
 %files -f %{name}.lang
 %doc COPYING README
 %{_presetdir}/86-firewalld.preset
-%{_sbindir}/firewalld
+%{_sbindir}/%{name}
 %{_bindir}/firewall-cmd
 %{_bindir}/firewall-offline-cmd
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/firewall-cmd
-%dir %{_prefix}/lib/firewalld
-%dir %{_prefix}/lib/firewalld/icmptypes
-%dir %{_prefix}/lib/firewalld/services
-%dir %{_prefix}/lib/firewalld/zones
-%{_prefix}/lib/firewalld/icmptypes/*.xml
-%{_prefix}/lib/firewalld/services/*.xml
-%{_prefix}/lib/firewalld/zones/*.xml
-%{_prefix}/lib/firewalld/xmlschema/*.xsd
-%dir %{_sysconfdir}/firewalld
-%config(noreplace) %{_sysconfdir}/firewalld/firewalld.conf
-%config(noreplace) %{_sysconfdir}/firewalld/lockdown-whitelist.xml
-%dir %{_sysconfdir}/firewalld/icmptypes
-%dir %{_sysconfdir}/firewalld/services
-%dir %{_sysconfdir}/firewalld/zones
-%config(noreplace) %{_sysconfdir}/sysconfig/firewalld
-%{_unitdir}/firewalld.service
+%dir %{_prefix}/lib/%{name}
+%dir %{_prefix}/lib/%{name}/icmptypes
+%dir %{_prefix}/lib/%{name}/ipsets
+%dir %{_prefix}/lib/%{name}/services
+%dir %{_prefix}/lib/%{name}/zones
+%dir %{_prefix}/lib/%{name}/xmlschema
+%{_prefix}/lib/%{name}/icmptypes/*.xml
+%{_prefix}/lib/%{name}/ipsets/README
+%{_prefix}/lib/%{name}/services/*.xml
+%{_prefix}/lib/%{name}/zones/*.xml
+%{_prefix}/lib/%{name}/xmlschema/*.xsd
+%{_prefix}/lib/%{name}/xmlschema/check.sh
+%dir %{_sysconfdir}/%{name}
+%config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
+%config(noreplace) %{_sysconfdir}/%{name}/lockdown-whitelist.xml
+%dir %{_sysconfdir}/%{name}/icmptypes
+%dir %{_sysconfdir}/%{name}/services
+%dir %{_sysconfdir}/%{name}/zones
+%config(noreplace) %{_sysconfdir}/sysconfig/%{name}
+%{_unitdir}/%{name}.service
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/FirewallD.conf
 %{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.policy
+%dir %{_datadir}/%{name}/tests
+%{_datadir}/%{name}/tests/*.sh
 %dir %{python_sitelib}/firewall
 %dir %{python_sitelib}/firewall/config
 %dir %{python_sitelib}/firewall/core
@@ -123,20 +144,21 @@ desktop-file-install --delete-original \
 %{python_sitelib}/firewall/core/io/*.py*
 %{python_sitelib}/firewall/server/*.py*
 %{_mandir}/man1/firewall*cmd*.1*
-%{_mandir}/man1/firewalld*.1*
+%{_mandir}/man1/%{name}*.1*
 %{_mandir}/man5/firewall*.5*
 
 %files -n firewall-applet
 %{_bindir}/firewall-applet
 %{_sysconfdir}/xdg/autostart/firewall-applet.desktop
+%{_sysconfdir}/firewall/applet.conf
 %{_datadir}/icons/hicolor/*/apps/firewall-applet*.*
-%{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallApplet.gschema.xml
+%{_datadir}/%{name}/gtk3_niceexpander.py
 %{_mandir}/man1/firewall-applet*.1*
 
 %files -n firewall-config
 %{_bindir}/firewall-config
-%{_datadir}/firewalld/firewall-config.glade
-%{_datadir}/firewalld/gtk3_chooserbutton.py*
+%{_datadir}/%{name}/firewall-config.glade
+%{_datadir}/%{name}/gtk3_chooserbutton.py*
 %{_datadir}/applications/firewall-config.desktop
 %{_datadir}/icons/hicolor/*/apps/firewall-config*.*
 %{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallConfig.gschema.xml
