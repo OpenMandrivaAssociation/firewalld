@@ -1,20 +1,17 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.4.2
-Release:	6
+Version:	0.4.3
+Release:	1
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
 Source0:	https://fedorahosted.org/released/%{name}/%{name}-%{version}.tar.bz2
 Source1:	%{name}.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
-# (tpg) reload rules when firewalld service starts
-Patch1:		firewalld-0.4.2-reload-firewalld-rules-on-service-start.patch
+# (tpg) use PyQt5
+Patch1:		firewalld-0.4.3-use-PyQt5-for-applet.patch
 # (tpg) try to keep nfs and samba enabled for default zones
 Patch2:		firewalld-0.3.13-enable-nfs-and-samba.patch
-# (tpg) from upstream git
-# https://github.com/t-woerner/firewalld/issues/119
-Patch3:		0000-firewall.core.fw_nm-Hide-NM-typelib-import-new-nm_ge.patch
 BuildArch:	noarch
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -45,7 +42,9 @@ Requires:	%{name} = %{EVRD}
 Requires:	firewall-config = %{EVRD}
 Requires:	hicolor-icon-theme
 Requires:	python-gobject3
-Requires:	python-qt4
+Requires:	python-qt5-core
+Requires:	python-qt5-gui
+Requires:	python-qt5-widgets
 Requires:	typelib(Notify)
 
 %description -n firewall-applet
@@ -92,11 +91,6 @@ desktop-file-install --delete-original \
 desktop-file-install --delete-original \
   --dir %{buildroot}%{_datadir}/applications \
   %{buildroot}%{_datadir}/applications/firewall-config.desktop
-
-#(tpg) fix bug #1327
-%if %mdvver >= 201500
-sed -i -e "s/kde-nm-connection-editor/kde5-nm-connection-editor/g" %{buildroot}%{_bindir}/firewall-applet
-%endif
 
 %find_lang %{name} --all-name
 
@@ -157,13 +151,13 @@ sed -i -e "s/kde-nm-connection-editor/kde5-nm-connection-editor/g" %{buildroot}%
 %{_sysconfdir}/xdg/autostart/firewall-applet.desktop
 %{_sysconfdir}/firewall/applet.conf
 %{_datadir}/icons/hicolor/*/apps/firewall-applet*.*
-%{_datadir}/%{name}/gtk3_niceexpander.py
 %{_mandir}/man1/firewall-applet*.1*
 
 %files -n firewall-config
 %{_bindir}/firewall-config
 %{_datadir}/%{name}/firewall-config.glade
 %{_datadir}/%{name}/gtk3_chooserbutton.py*
+%{_datadir}/%{name}/gtk3_niceexpander.py
 %{_datadir}/applications/firewall-config.desktop
 %{_datadir}/icons/hicolor/*/apps/firewall-config*.*
 %{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallConfig.gschema.xml
