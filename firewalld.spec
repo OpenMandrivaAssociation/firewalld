@@ -106,6 +106,7 @@ desktop-file-install --delete-original \
 %{_sbindir}/%{name}
 %{_bindir}/firewall-cmd
 %{_bindir}/firewall-offline-cmd
+%{_bindir}/firewallctl
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/firewall-cmd
 %dir %{_prefix}/lib/%{name}
