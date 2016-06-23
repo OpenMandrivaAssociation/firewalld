@@ -1,7 +1,7 @@
 diff -Naur firewalld-0.4.3/src/firewall-applet firewalld-0.4.3.tpg/src/firewall-applet
---- firewalld-0.4.3/src/firewall-applet	2016-06-22 13:28:24.000000000 +0000
-+++ firewalld-0.4.3.tpg/src/firewall-applet	2016-06-23 19:45:21.757871703 +0000
-@@ -21,7 +21,7 @@
+--- firewalld-0.4.3/src/firewall-applet	2016-06-16 10:09:35.000000000 +0000
++++ firewalld-0.4.3.tpg/src/firewall-applet	2016-06-23 20:32:59.280457093 +0000
+@@ -21,14 +21,14 @@
  #
  
  import sys
@@ -10,6 +10,14 @@ diff -Naur firewalld-0.4.3/src/firewall-applet firewalld-0.4.3.tpg/src/firewall-
  
  import gi
  gi.require_version('Notify', '0.7')
+ from gi.repository import Notify
+ 
+ import os
+-from dbus.mainloop.qt import DBusQtMainLoop
++from dbus.mainloop.pyqt5 import DBusQtMainLoop
+ import functools
+ 
+ from firewall.config import *
 @@ -81,14 +81,14 @@
  
  # ZoneInterfaceEditor #########################################################
