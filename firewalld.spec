@@ -1,7 +1,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
 Version:	0.4.2
-Release:	5
+Release:	6
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
@@ -27,7 +27,6 @@ BuildRequires:	ipset
 BuildRequires:	iptables
 BuildRequires:	ebtables
 Requires:	python3-dbus
-Requires:	python-qt4
 Requires:	python-slip-dbus >= 0.2.7
 Requires:	python-decorator
 Requires:	iptables >= 1.4.21-11
@@ -46,10 +45,11 @@ Requires:	%{name} = %{EVRD}
 Requires:	firewall-config = %{EVRD}
 Requires:	hicolor-icon-theme
 Requires:	python-gobject3
+Requires:	python-qt4
 Requires:	typelib(Notify)
 
 %description -n firewall-applet
-The firewall panel applet provides a status information of %{name} and also 
+The firewall panel applet provides a status information of %{name} and also
 the firewall settings.
 
 %package -n firewall-config
@@ -63,7 +63,7 @@ Requires:	typelib(Gtk)
 Requires:	typelib(NetworkManager)
 
 %description -n firewall-config
-The firewall configuration application provides an configuration interface for 
+The firewall configuration application provides an configuration interface for
 %{name}.
 
 %prep
