@@ -5,7 +5,7 @@ Release:	1
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
-Source0:	https://fedorahosted.org/released/%{name}/%{name}-%{version}.tar.gz
+Source0:	https://fedorahosted.org/released/%{name}/%{name}-%{version}.tar.bz2
 Source1:	%{name}.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
 # (tpg) use PyQt5
