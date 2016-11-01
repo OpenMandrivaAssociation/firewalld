@@ -99,7 +99,7 @@ desktop-file-install --delete-original \
 %{_bindir}/firewall-cmd --reload --quiet || :
 
 %files -f %{name}.lang
-%doc COPYING README
+%doc README
 %{_presetdir}/86-firewalld.preset
 %{_sbindir}/%{name}
 %{_bindir}/firewall-cmd
@@ -108,11 +108,13 @@ desktop-file-install --delete-original \
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/firewall-cmd
 %dir %{_prefix}/lib/%{name}
+%dir %{_prefix}/lib/%{name}/helpers
 %dir %{_prefix}/lib/%{name}/icmptypes
 %dir %{_prefix}/lib/%{name}/ipsets
 %dir %{_prefix}/lib/%{name}/services
 %dir %{_prefix}/lib/%{name}/zones
 %dir %{_prefix}/lib/%{name}/xmlschema
+%{_prefix}/lib/%{name}/helpers/*.xml
 %{_prefix}/lib/%{name}/icmptypes/*.xml
 %{_prefix}/lib/%{name}/ipsets/README
 %{_prefix}/lib/%{name}/services/*.xml
