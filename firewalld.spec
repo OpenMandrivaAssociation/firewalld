@@ -1,6 +1,6 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.4.3.3
+Version:	0.4.4
 Release:	1
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
@@ -8,8 +8,6 @@ Group:		System/Base
 Source0:	https://fedorahosted.org/released/%{name}/%{name}-%{version}.tar.bz2
 Source1:	%{name}.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
-# (tpg) use PyQt5
-Patch1:		firewalld-0.4.3-use-PyQt5-for-applet.patch
 # (tpg) try to keep nfs and samba enabled for default zones
 Patch2:		firewalld-0.3.13-enable-nfs-and-samba.patch
 BuildArch:	noarch
