@@ -70,6 +70,8 @@ The firewall configuration application provides an configuration interface for
 %apply_patches
 
 %build
+./autogen.sh
+
 %configure \
     --enable-sysconfig \
     --with-systemd-unitdir=%{_systemunitdir}
