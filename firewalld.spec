@@ -80,7 +80,7 @@ The firewall configuration application provides an configuration interface for
 # no make
 
 %install
-%makeinstall_std
+%makeinstall_std -j1
 
 install -d %{buildroot}%{_presetdir}
 cat > %{buildroot}%{_presetdir}/86-firewalld.preset << EOF
