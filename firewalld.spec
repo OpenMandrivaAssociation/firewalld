@@ -1,3 +1,5 @@
+%define _disable_rebuild_configure 1
+
 Summary:	A dynamic firewall daemon
 Name:		firewalld
 Version:	0.4.4.2
@@ -17,6 +19,7 @@ BuildRequires:	intltool
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(libsystemd)
 BuildRequires:	docbook-style-xsl
+BuildRequires:	xsltproc
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	ipset
 BuildRequires:	iptables
@@ -68,9 +71,11 @@ The firewall configuration application provides an configuration interface for
 %apply_patches
 
 %build
+./autogen.sh
+
 %configure \
     --enable-sysconfig \
-    --with-systemd-unitdir=%{_unitdir}
+    --with-systemd-unitdir=%{_systemunitdir}
 
 # no make
 
@@ -128,7 +133,7 @@ desktop-file-install --delete-original \
 %dir %{_sysconfdir}/%{name}/services
 %dir %{_sysconfdir}/%{name}/zones
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
-%{_unitdir}/%{name}.service
+%{_systemunitdir}/%{name}.service
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/FirewallD.conf
 %{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.policy
 %dir %{_datadir}/%{name}/tests
