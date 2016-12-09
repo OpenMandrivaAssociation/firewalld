@@ -19,6 +19,7 @@ BuildRequires:	intltool
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(libsystemd)
 BuildRequires:	docbook-style-xsl
+BuildRequires:	xsltproc
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	ipset
 BuildRequires:	iptables
