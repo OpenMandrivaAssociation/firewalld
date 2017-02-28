@@ -2,7 +2,7 @@
 
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.4.4.2
+Version:	0.4.4.3
 Release:	1
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
@@ -12,6 +12,7 @@ Source1:	%{name}.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
 # (tpg) try to keep nfs and samba enabled for default zones
 Patch2:		firewalld-0.3.13-enable-nfs-and-samba.patch
+Patch3:		firewalld-0.4.4.3-get_ipset_no_applied_check.patch
 BuildArch:	noarch
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
