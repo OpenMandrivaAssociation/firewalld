@@ -1,0 +1,59 @@
+From d69b7cb2724f041f257b90184a64e28a667ee7e9 Mon Sep 17 00:00:00 2001
+From: Thomas Woerner <twoerner@redhat.com>
+Date: Thu, 8 Jun 2017 15:31:11 +0200
+Subject: [PATCH] firewall.core.rich: Add checks for Rich_Source validation
+
+A rich-rule source needs to either contain a IP address, a MAC address or an
+ipset.
+---
+ src/firewall/core/rich.py | 24 +++++++++++++++++-------
+ 1 file changed, 17 insertions(+), 7 deletions(-)
+
+diff --git a/src/firewall/core/rich.py b/src/firewall/core/rich.py
+index 3adcb4d9..04791da6 100644
+--- a/src/firewall/core/rich.py
++++ b/src/firewall/core/rich.py
+@@ -46,15 +46,21 @@ def __init__(self, addr, mac, ipset, invert=False):
+         if self.ipset == "":
+             self.ipset = None
+         self.invert = invert
++        if self.addr is None and self.mac is None and self.ipset is None:
++            raise FirewallError(errors.INVALID_RULE,
++                                "no address, mac and ipset")
+ 
+     def __str__(self):
+-        if self.addr:
+-            x = ' address="%s"' % self.addr
+-        elif self.mac:
+-            x = ' mac="%s"' % self.mac
+-        elif self.ipset:
+-            x = ' ipset="%s"' % self.ipset
+-        return 'source%s%s' % (" NOT" if self.invert else "", x)
++        ret = 'source%s ' % (" NOT" if self.invert else "")
++        if self.addr is not None:
++            return ret + 'address="%s"' % self.addr
++        elif self.mac is not None:
++            return ret + 'mac="%s"' % self.mac
++        elif self.ipset is not None:
++            return ret + 'ipset="%s"' % self.ipset
++        else:
++            raise FirewallError(errors.INVALID_RULE,
++                                "no address, mac and ipset")
+ 
+ class Rich_Destination(object):
+     def __init__(self, addr, invert=False):
+@@ -542,10 +548,14 @@ def check(self):
+                     raise FirewallError(errors.INVALID_FAMILY)
+                 if self.source.mac is not None:
+                     raise FirewallError(errors.INVALID_RULE, "address and mac")
++                if self.source.ipset is not None:
++                    raise FirewallError(errors.INVALID_RULE, "address and ipset")
+                 if not functions.check_address(self.family, self.source.addr):
+                     raise FirewallError(errors.INVALID_ADDR, str(self.source.addr))
+ 
+             elif self.source.mac is not None:
++                if self.source.ipset is not None:
++                    raise FirewallError(errors.INVALID_RULE, "mac and ipset")
+                 if not functions.check_mac(self.source.mac):
+                     raise FirewallError(errors.INVALID_MAC, str(self.source.mac))
+ 

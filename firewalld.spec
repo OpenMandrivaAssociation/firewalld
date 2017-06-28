@@ -2,17 +2,19 @@
 
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.4.4.3
+Version:	0.4.4.5
 Release:	1
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
-Source0:	https://fedorahosted.org/released/%{name}/%{name}-%{version}.tar.bz2
+Source0:	https://github.com/t-woerner/firewalld/archive/v%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
 # (tpg) try to keep nfs and samba enabled for default zones
-Patch2:		firewalld-0.3.13-enable-nfs-and-samba.patch
-Patch3:		firewalld-0.4.4.3-get_ipset_no_applied_check.patch
+Patch1:		firewalld-0.3.13-enable-nfs-and-samba.patch
+# fedora
+Patch2: firewalld-0.4.4.5-rich_source_validation-d69b7cb.patch
+Patch3: firewalld-0.4.4.5-ipv6_icmptype_only_rich_rule_fix-cf50bd0.patch
 BuildArch:	noarch
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -79,6 +81,9 @@ The firewall configuration application provides an configuration interface for
     --with-systemd-unitdir=%{_systemunitdir}
 
 # no make
+pushd doc
+%make
+popd
 
 %install
 %makeinstall_std
@@ -170,6 +175,6 @@ desktop-file-install --delete-original \
 %{_datadir}/icons/hicolor/*/apps/firewall-config*.*
 %{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallConfig.gschema.xml
 %{_datadir}/appdata/firewall-config.appdata.xml
-%{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.desktop.policy
-%{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.server.policy
+%{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.desktop.policy.choice
+%{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.server.policy.choice
 %{_mandir}/man1/firewall-config*.1*
