@@ -136,6 +136,7 @@ desktop-file-install --delete-original \
 %dir %{_sysconfdir}/%{name}/services
 %dir %{_sysconfdir}/%{name}/zones
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
+%{_sysconfdir}/modprobe.d/*.conf
 %{_systemunitdir}/%{name}.service
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/FirewallD.conf
 %{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.policy
