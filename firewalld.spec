@@ -13,7 +13,6 @@ Patch0:		firewalld-0.2.6-MDNS-default.patch
 # (tpg) try to keep nfs and samba enabled for default zones
 Patch1:		firewalld-0.3.13-enable-nfs-and-samba.patch
 # fedora
-Patch2: firewalld-0.4.4.5-rich_source_validation-d69b7cb.patch
 Patch3: firewalld-0.4.4.5-ipv6_icmptype_only_rich_rule_fix-cf50bd0.patch
 BuildArch:	noarch
 BuildRequires:	desktop-file-utils
