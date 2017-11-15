@@ -2,19 +2,16 @@
 
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.4.4.5
+Version:	0.4.4.6
 Release:	1
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
-Source0:	https://github.com/t-woerner/firewalld/archive/v%{version}.tar.gz
+Source0:	https://github.com/t-woerner/firewalld/archive/%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
 # (tpg) try to keep nfs and samba enabled for default zones
 Patch1:		firewalld-0.3.13-enable-nfs-and-samba.patch
-# fedora
-Patch2: firewalld-0.4.4.5-rich_source_validation-d69b7cb.patch
-Patch3: firewalld-0.4.4.5-ipv6_icmptype_only_rich_rule_fix-cf50bd0.patch
 BuildArch:	noarch
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -139,6 +136,7 @@ desktop-file-install --delete-original \
 %dir %{_sysconfdir}/%{name}/services
 %dir %{_sysconfdir}/%{name}/zones
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
+%{_sysconfdir}/modprobe.d/*.conf
 %{_systemunitdir}/%{name}.service
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/FirewallD.conf
 %{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.policy
