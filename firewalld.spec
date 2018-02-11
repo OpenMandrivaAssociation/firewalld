@@ -78,9 +78,9 @@ The firewall configuration application provides an configuration interface for
     --with-systemd-unitdir=%{_systemunitdir}
 
 # no make
-pushd doc
+cd doc
 %make
-popd
+cd ..
 
 %install
 %makeinstall_std
@@ -140,8 +140,6 @@ desktop-file-install --delete-original \
 %{_systemunitdir}/%{name}.service
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/FirewallD.conf
 %{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.policy
-%dir %{_datadir}/%{name}/tests
-%{_datadir}/%{name}/tests/*.sh
 %dir %{python_sitelib}/firewall
 %dir %{python_sitelib}/firewall/config
 %dir %{python_sitelib}/firewall/core
