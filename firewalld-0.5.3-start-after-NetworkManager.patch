@@ -1,0 +1,14 @@
+diff -up firewalld-0.5.3/config/firewalld.service.in.omv~ firewalld-0.5.3/config/firewalld.service.in
+--- firewalld-0.5.3/config/firewalld.service.in.omv~	2018-06-03 16:19:02.107108915 +0200
++++ firewalld-0.5.3/config/firewalld.service.in	2018-06-03 16:20:51.942114932 +0200
+@@ -1,9 +1,8 @@
+ [Unit]
+ Description=firewalld - dynamic firewall daemon
+-Before=network-pre.target
+-Wants=network-pre.target
+ After=dbus.service
+ After=polkit.service
++After=NetworkManager.service
+ Conflicts=iptables.service ip6tables.service ebtables.service ipset.service
+ Documentation=man:firewalld(1)
+ 

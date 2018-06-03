@@ -3,7 +3,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
 Version:	0.5.3
-Release:	1
+Release:	2
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
@@ -12,6 +12,8 @@ Source1:	%{name}.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
 # (tpg) try to keep nfs and samba enabled for default zones
 Patch1:		firewalld-0.3.13-enable-nfs-and-samba.patch
+# Make sure firewalld is started after interfaces are up
+Patch2:		firewalld-0.5.3-start-after-NetworkManager.patch
 BuildArch:	noarch
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -42,7 +44,6 @@ Group:		System/Base
 Requires:	%{name} = %{EVRD}
 Requires:	firewall-config = %{EVRD}
 Requires:	hicolor-icon-theme
-Requires:	python-gobject3
 Requires:	python-qt5-core
 Requires:	python-qt5-dbus
 Requires:	python-qt5-gui
@@ -58,7 +59,6 @@ Summary:	Firewall configuration application
 Group:		System/Base
 Requires:	%{name} = %{EVRD}
 Requires:	hicolor-icon-theme
-Requires:	python-gobject3
 Requires:	typelib(Gtk)
 Requires:	typelib(NetworkManager)
 
@@ -67,8 +67,7 @@ The firewall configuration application provides an configuration interface for
 %{name}.
 
 %prep
-%setup -q
-%apply_patches
+%autosetup -p1
 
 %build
 ./autogen.sh
@@ -100,10 +99,10 @@ desktop-file-install --delete-original \
 
 %find_lang %{name} --all-name
 
-%triggerposttransin -- %{_prefix}/lib/firewalld/services/*.xml
+%triggerin -- %{_prefix}/lib/firewalld/services/*.xml
 %{_bindir}/firewall-cmd --reload --quiet || :
 
-%triggerposttransun -- %{_prefix}/lib/firewalld/services/*.xml
+%triggerun -- %{_prefix}/lib/firewalld/services/*.xml
 %{_bindir}/firewall-cmd --reload --quiet || :
 
 %files -f %{name}.lang
@@ -146,10 +145,15 @@ desktop-file-install --delete-original \
 %dir %{python_sitelib}/firewall/core/io
 %dir %{python_sitelib}/firewall/server
 %{python_sitelib}/firewall/*.py*
+%{python_sitelib}/firewall/__pycache__
 %{python_sitelib}/firewall/config/*.py*
+%{python_sitelib}/firewall/config/__pycache__
 %{python_sitelib}/firewall/core/*.py*
+%{python_sitelib}/firewall/core/__pycache__
 %{python_sitelib}/firewall/core/io/*.py*
+%{python_sitelib}/firewall/core/io/__pycache__
 %{python_sitelib}/firewall/server/*.py*
+%{python_sitelib}/firewall/server/__pycache__
 %{_mandir}/man1/firewall*cmd*.1*
 %{_mandir}/man1/firewallctl.1.*
 %{_mandir}/man1/%{name}*.1*
@@ -164,9 +168,11 @@ desktop-file-install --delete-original \
 
 %files -n firewall-config
 %{_bindir}/firewall-config
+%dir %{_datadir}/%{name}
 %{_datadir}/%{name}/firewall-config.glade
 %{_datadir}/%{name}/gtk3_chooserbutton.py*
 %{_datadir}/%{name}/gtk3_niceexpander.py
+%{_datadir}/%{name}/__pycache__
 %{_datadir}/applications/firewall-config.desktop
 %{_datadir}/icons/hicolor/*/apps/firewall-config*.*
 %{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallConfig.gschema.xml
