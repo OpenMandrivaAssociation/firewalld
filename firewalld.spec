@@ -59,7 +59,6 @@ Summary:	Firewall configuration application
 Group:		System/Base
 Requires:	%{name} = %{EVRD}
 Requires:	hicolor-icon-theme
-Requires:	typelib(Gtk)
 Requires:	typelib(NetworkManager)
 
 %description -n firewall-config
