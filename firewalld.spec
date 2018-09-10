@@ -2,12 +2,12 @@
 
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.5.3
-Release:	3
+Version:	0.6.1
+Release:	1
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
-Source0:	https://github.com/t-woerner/firewalld/archive/%{name}-%{version}.tar.gz
+Source0:	https://github.com/firewalld/firewalld/archive/v%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
 # (tpg) try to keep nfs and samba enabled for default zones
@@ -26,11 +26,13 @@ BuildRequires:	pkgconfig(python3)
 BuildRequires:	ipset
 BuildRequires:	iptables
 BuildRequires:	ebtables
+BuildRequires:	nftables
 Requires:	python-dbus
 Requires:	python-slip-dbus >= 0.2.7
 Requires:	python-decorator
 Requires:	iptables >= 1.4.21-11
 Requires:	ebtables
+Requires:	nftables
 Requires:	ipset
 Requires:	typelib(NM)
 Requires(post,preun):	rpm-helper
@@ -110,7 +112,6 @@ desktop-file-install --delete-original \
 %{_sbindir}/%{name}
 %{_bindir}/firewall-cmd
 %{_bindir}/firewall-offline-cmd
-%{_bindir}/firewallctl
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/firewall-cmd
 %dir %{_prefix}/lib/%{name}
@@ -119,14 +120,11 @@ desktop-file-install --delete-original \
 %dir %{_prefix}/lib/%{name}/ipsets
 %dir %{_prefix}/lib/%{name}/services
 %dir %{_prefix}/lib/%{name}/zones
-%dir %{_prefix}/lib/%{name}/xmlschema
 %{_prefix}/lib/%{name}/helpers/*.xml
 %{_prefix}/lib/%{name}/icmptypes/*.xml
 %{_prefix}/lib/%{name}/ipsets/README
 %{_prefix}/lib/%{name}/services/*.xml
 %{_prefix}/lib/%{name}/zones/*.xml
-%{_prefix}/lib/%{name}/xmlschema/*.xsd
-%{_prefix}/lib/%{name}/xmlschema/check.sh
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/%{name}/lockdown-whitelist.xml
@@ -154,7 +152,6 @@ desktop-file-install --delete-original \
 %{python_sitelib}/firewall/server/*.py*
 %{python_sitelib}/firewall/server/__pycache__
 %{_mandir}/man1/firewall*cmd*.1*
-%{_mandir}/man1/firewallctl.1.*
 %{_mandir}/man1/%{name}*.1*
 %{_mandir}/man5/firewall*.5*
 
@@ -175,7 +172,7 @@ desktop-file-install --delete-original \
 %{_datadir}/applications/firewall-config.desktop
 %{_datadir}/icons/hicolor/*/apps/firewall-config*.*
 %{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallConfig.gschema.xml
-%{_datadir}/appdata/firewall-config.appdata.xml
+%{_datadir}/metainfo/firewall-config.appdata.xml
 %{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.desktop.policy.choice
 %{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.server.policy.choice
 %{_mandir}/man1/firewall-config*.1*
