@@ -2,12 +2,12 @@
 
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.6.1
+Version:	0.6.2
 Release:	1
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
-Source0:	https://github.com/firewalld/firewalld/archive/v%{version}.tar.gz
+Source0:	https://github.com/firewalld/firewalld/archive/%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
 # (tpg) try to keep nfs and samba enabled for default zones
@@ -75,15 +75,15 @@ The firewall configuration application provides an configuration interface for
 
 %configure \
     --enable-sysconfig \
-    --with-systemd-unitdir=%{_systemunitdir}
+    --with-systemd-unitdir=%{_unitdir}
 
 # no make
 cd doc
-%make
+%make_build
 cd ..
 
 %install
-%makeinstall_std
+%make_install
 
 install -d %{buildroot}%{_presetdir}
 cat > %{buildroot}%{_presetdir}/86-firewalld.preset << EOF
@@ -133,7 +133,7 @@ desktop-file-install --delete-original \
 %dir %{_sysconfdir}/%{name}/zones
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %{_sysconfdir}/modprobe.d/*.conf
-%{_systemunitdir}/%{name}.service
+%{_unitdir}/%{name}.service
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/FirewallD.conf
 %{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.policy
 %dir %{python_sitelib}/firewall
