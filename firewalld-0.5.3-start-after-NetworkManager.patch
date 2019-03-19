@@ -8,7 +8,7 @@ diff -up firewalld-0.5.3/config/firewalld.service.in.omv~ firewalld-0.5.3/config
 -Wants=network-pre.target
  After=dbus.service
  After=polkit.service
-+After=NetworkManager.service systemd-networkd.service
++After=NetworkManager.service
  Conflicts=iptables.service ip6tables.service ebtables.service ipset.service
  Documentation=man:firewalld(1)
  
