@@ -48,6 +48,7 @@ Group:		System/Base
 Requires:	%{name} = %{EVRD}
 Requires:	firewall-config = %{EVRD}
 Requires:	hicolor-icon-theme
+Requires:	python-sip-qt5
 Requires:	python-qt5-core
 Requires:	python-qt5-dbus
 Requires:	python-qt5-gui
