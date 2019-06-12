@@ -102,6 +102,9 @@ desktop-file-install --delete-original \
   --dir %{buildroot}%{_datadir}/applications \
   %{buildroot}%{_datadir}/applications/firewall-config.desktop
 
+# (tpg) not needed
+rm -rf %{buildroot}%{_datadir}/zsh
+
 %find_lang %{name} --all-name
 
 %triggerin -- %{_prefix}/lib/firewalld/services/*.xml
