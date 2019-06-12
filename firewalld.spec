@@ -138,7 +138,7 @@ desktop-file-install --delete-original \
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %{_sysconfdir}/modprobe.d/*.conf
 %{_unitdir}/%{name}.service
-%config(noreplace) %{_sysconfdir}/dbus-1/system.d/FirewallD.conf
+%{_datadir}/dbus-1/system.d/FirewallD.conf
 %{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.policy
 %dir %{python_sitelib}/firewall
 %dir %{python_sitelib}/firewall/config
