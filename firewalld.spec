@@ -3,7 +3,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
 Version:	0.7.0
-Release:	1
+Release:	2
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
@@ -53,6 +53,7 @@ Requires:	python-qt5-core
 Requires:	python-qt5-dbus
 Requires:	python-qt5-gui
 Requires:	python-qt5-widgets
+Requires:	python-sip
 Requires:	typelib(Notify)
 Requires:	typelib(GdkPixbuf)
 
