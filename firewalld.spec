@@ -2,7 +2,7 @@
 
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.7.2
+Version:	0.8.0
 Release:	1
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
@@ -35,6 +35,7 @@ Requires:	python-decorator
 Requires:	iptables >= 1.4.21-11
 Requires:	ebtables
 Requires:	nftables
+Requires:	python-nftables > 0.9.2-1
 Requires:	ipset
 Requires:	typelib(NM)
 Requires(post,preun):	rpm-helper
