@@ -138,6 +138,7 @@ rm -rf %{buildroot}%{_datadir}/zsh
 %dir %{_sysconfdir}/%{name}/icmptypes
 %dir %{_sysconfdir}/%{name}/services
 %dir %{_sysconfdir}/%{name}/zones
+%{_sysconfdir}/logrotate.d/firewalld
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %{_sysconfdir}/modprobe.d/*.conf
 %{_unitdir}/%{name}.service
