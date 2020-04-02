@@ -175,7 +175,6 @@ rm -rf %{buildroot}%{_datadir}/zsh
 %{_datadir}/%{name}/firewall-config.glade
 %{_datadir}/%{name}/gtk3_chooserbutton.py*
 %{_datadir}/%{name}/gtk3_niceexpander.py
-%{_datadir}/%{name}/__pycache__
 %{_datadir}/applications/firewall-config.desktop
 %{_datadir}/icons/hicolor/*/apps/firewall-config*.*
 %{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallConfig.gschema.xml
