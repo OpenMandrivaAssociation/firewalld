@@ -12,8 +12,6 @@ Source1:	%{name}.rpmlintrc
 Patch0:		firewalld-0.2.6-MDNS-default.patch
 # (tpg) try to keep nfs and samba enabled for default zones
 Patch1:		firewalld-0.3.13-enable-nfs-and-samba.patch
-# Make sure firewalld is started after interfaces are up
-Patch2:		firewalld-0.5.3-start-after-NetworkManager.patch
 BuildArch:	noarch
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
