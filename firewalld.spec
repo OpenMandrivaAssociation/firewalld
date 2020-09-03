@@ -130,6 +130,7 @@ rm -rf %{buildroot}%{_datadir}/zsh
 %{_prefix}/lib/%{name}/ipsets/README
 %{_prefix}/lib/%{name}/services/*.xml
 %{_prefix}/lib/%{name}/zones/*.xml
+%{_prefix}/lib/firewalld/policies/allow-host-ipv6.xml
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/%{name}/lockdown-whitelist.xml
