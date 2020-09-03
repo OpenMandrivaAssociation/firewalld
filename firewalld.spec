@@ -2,7 +2,7 @@
 
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.8.3
+Version:	0.9.0
 Release:	1
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
@@ -130,6 +130,7 @@ rm -rf %{buildroot}%{_datadir}/zsh
 %{_prefix}/lib/%{name}/ipsets/README
 %{_prefix}/lib/%{name}/services/*.xml
 %{_prefix}/lib/%{name}/zones/*.xml
+%{_prefix}/lib/firewalld/policies/allow-host-ipv6.xml
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/%{name}/lockdown-whitelist.xml
