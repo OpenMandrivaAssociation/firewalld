@@ -3,7 +3,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
 Version:	0.9.3
-Release:	1
+Release:	2
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
@@ -36,6 +36,7 @@ Requires:	ipset
 Requires:	python-nftables > 0.9.2-1
 Requires:	typelib(NM)
 Requires(post,preun):	rpm-helper
+Conflicts:	firewall-config < 0.9.3-2
 
 %description
 A firewall service daemon with D-BUS interface managing a dynamic firewall.
@@ -87,6 +88,10 @@ cd ..
 %install
 %make_install
 
+# (tpg) use desktop policy by default
+rm -rf %{buildroot}%{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.policy
+ln -sf org.fedoraproject.FirewallD1.desktop.policy.choice %{buildroot}%{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.policy
+
 install -d %{buildroot}%{_presetdir}
 cat > %{buildroot}%{_presetdir}/86-firewalld.preset << EOF
 enable firewalld.service
@@ -110,6 +115,15 @@ rm -rf %{buildroot}%{_datadir}/zsh
 
 %triggerun -- %{_prefix}/lib/firewalld/services/*.xml
 %{_bindir}/firewall-cmd --reload --quiet || :
+
+%post
+%systemd_post firewalld.service
+
+%preun
+%systemd_preun firewalld.service
+
+%postun
+%systemd_postun_with_restart firewalld.service 
 
 %files -f %{name}.lang
 %doc README
@@ -143,6 +157,8 @@ rm -rf %{buildroot}%{_datadir}/zsh
 %{_unitdir}/%{name}.service
 %{_datadir}/dbus-1/system.d/FirewallD.conf
 %{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.policy
+%{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.desktop.policy.choice
+%{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.server.policy.choice
 %dir %{python_sitelib}/firewall
 %dir %{python_sitelib}/firewall/config
 %dir %{python_sitelib}/firewall/core
@@ -179,6 +195,4 @@ rm -rf %{buildroot}%{_datadir}/zsh
 %{_datadir}/icons/hicolor/*/apps/firewall-config*.*
 %{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallConfig.gschema.xml
 %{_datadir}/metainfo/firewall-config.appdata.xml
-%{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.desktop.policy.choice
-%{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.server.policy.choice
 %{_mandir}/man1/firewall-config*.1*
