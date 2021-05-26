@@ -3,7 +3,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
 Version:	0.9.3
-Release:	3
+Release:	4
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
@@ -35,6 +35,7 @@ Requires:	iptables-nft
 Requires:	ipset
 Requires:	python-nftables > 0.9.2-1
 Requires:	typelib(NM)
+Requires:	python3dist(pygobject)
 Conflicts:	firewall-config < 0.9.3-2
 %systemd_requires
 
