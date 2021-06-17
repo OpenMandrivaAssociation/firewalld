@@ -1,9 +1,7 @@
-%define _disable_rebuild_configure 1
-
 Summary:	A dynamic firewall daemon
 Name:		firewalld
 Version:	0.9.3
-Release:	4
+Release:	5
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
@@ -17,20 +15,17 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	intltool
 BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:	pkgconfig(libsystemd)
 BuildRequires:	docbook-style-xsl
 BuildRequires:	xsltproc
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	ipset
 BuildRequires:	iptables
 BuildRequires:	ebtables
-BuildRequires:	nftables
-BuildRequires:	systemd-macros
+BuildRequires:	systemd-rpm-macros
 BuildRequires:	docbook-dtd42-xml
 Requires:	python-dbus
 Requires:	python-slip-dbus >= 0.2.7
 Requires:	python-decorator
-Requires:	iptables >= 1.4.21-11
 Requires:	iptables-nft
 Requires:	ipset
 Requires:	python-nftables > 0.9.2-1
@@ -75,8 +70,6 @@ The firewall configuration application provides an configuration interface for
 %autosetup -p1
 
 %build
-./autogen.sh
-
 %configure \
     --enable-sysconfig \
     --with-systemd-unitdir=%{_unitdir}
