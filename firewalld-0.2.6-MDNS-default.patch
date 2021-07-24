@@ -13,28 +13,25 @@ Subject: [PATCH] Make MDNS work in all but the most restrictive zones
  config/zones/work.xml   | 1 +
  2 files changed, 2 insertions(+)
 
-diff --git a/config/zones/public.xml b/config/zones/public.xml
-index 929ad72..a56e95c 100644
---- a/config/zones/public.xml
-+++ b/config/zones/public.xml
-@@ -3,5 +3,6 @@
+diff -uraN firewalld-1.0.0/config/zones/public.xml omv-firewalld-1.0.0/config/zones/public.xml
+--- firewalld-1.0.0/config/zones/public.xml	2021-07-22 21:55:48.000000000 +0200
++++ omv-firewalld-1.0.0/config/zones/public.xml	2021-07-25 01:05:14.233682387 +0200
+@@ -3,6 +3,7 @@
    <short>Public</short>
    <description>For use in public areas. You do not trust the other computers on networks to not harm your computer. Only selected incoming connections are accepted.</description>
    <service name="ssh"/>
 +  <service name="mdns"/>
    <service name="dhcpv6-client"/>
+   <forward/>
  </zone>
-diff --git a/config/zones/work.xml b/config/zones/work.xml
-index 7e750fc..77f13c8 100644
---- a/config/zones/work.xml
-+++ b/config/zones/work.xml
-@@ -3,5 +3,6 @@
+diff -uraN firewalld-1.0.0/config/zones/work.xml omv-firewalld-1.0.0/config/zones/work.xml
+--- firewalld-1.0.0/config/zones/work.xml	2021-07-22 21:55:48.000000000 +0200
++++ omv-firewalld-1.0.0/config/zones/work.xml	2021-07-25 01:05:50.669682972 +0200
+@@ -3,6 +3,7 @@
    <short>Work</short>
    <description>For use in work areas. You mostly trust the other computers on networks to not harm your computer. Only selected incoming connections are accepted.</description>
    <service name="ssh"/>
 +  <service name="mdns"/>
    <service name="dhcpv6-client"/>
+   <forward/>
  </zone>
--- 
-1.7.11.2
-
