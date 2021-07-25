@@ -7,7 +7,6 @@ License:	GPLv2+
 Group:		System/Base
 Source0:	https://github.com/firewalld/firewalld/archive/%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
-Patch0:		firewalld-0.2.6-MDNS-default.patch
 # (tpg) try to keep nfs and samba enabled for default zones
 Patch1:		firewalld-0.3.13-enable-nfs-and-samba.patch
 BuildArch:	noarch
