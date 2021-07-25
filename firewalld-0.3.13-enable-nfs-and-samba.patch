@@ -35,7 +35,7 @@ diff -uraN firewalld-1.0.0/config/zones/public.xml omv-firewalld-1.0.0/config/zo
 +  <service name="samba-client"/>
    <service name="dhcpv6-client"/>
    <forward/>
- </zone>
+  </zone>
 diff -uraN firewalld-1.0.0/config/zones/work.xml omv-firewalld-1.0.0/config/zones/work.xml
 --- firewalld-1.0.0/config/zones/work.xml	2021-07-22 21:55:48.000000000 +0200
 +++ omv-firewalld-1.0.0/config/zones/work.xml	2021-07-25 01:41:25.304717278 +0200
