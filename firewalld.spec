@@ -1,13 +1,12 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	0.9.4
-Release:	2
+Version:	1.0.0
+Release:	1
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
 Source0:	https://github.com/firewalld/firewalld/archive/%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
-Patch0:		firewalld-0.2.6-MDNS-default.patch
 # (tpg) try to keep nfs and samba enabled for default zones
 Patch1:		firewalld-0.3.13-enable-nfs-and-samba.patch
 BuildArch:	noarch
@@ -24,13 +23,12 @@ BuildRequires:	ebtables
 BuildRequires:	systemd-rpm-macros
 BuildRequires:	docbook-dtd42-xml
 Requires:	python-dbus
-Requires:	python-slip-dbus >= 0.2.7
-Requires:	python-decorator
 Requires:	iptables-nft
 Requires:	ipset
 Requires:	python-nftables > 0.9.2-1
 Requires:	typelib(NM)
 Requires:	python3dist(pygobject)
+Recommends: python-libcap-ng
 Conflicts:	firewall-config < 0.9.3-2
 %systemd_requires
 
@@ -61,15 +59,25 @@ Summary:	Firewall configuration application
 Group:		System/Base
 Requires:	%{name} = %{EVRD}
 Requires:	hicolor-icon-theme
+Recommends: polkit
 
 %description -n firewall-config
 The firewall configuration application provides an configuration interface for
 %{name}.
 
+%package -n firewalld-test
+Summary:	Firewalld testsuite
+Group:		System/Base
+Requires:	%{name} = %{EVRD}
+
+%description -n firewalld-test            
+This package provides the firewalld testsuite.
+
 %prep
 %autosetup -p1
 
 %build
+./autogen.sh
 %configure \
     --enable-sysconfig \
     --with-systemd-unitdir=%{_unitdir}
@@ -190,3 +198,15 @@ rm -rf %{buildroot}%{_datadir}/zsh
 %{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallConfig.gschema.xml
 %{_datadir}/metainfo/firewall-config.appdata.xml
 %{_mandir}/man1/firewall-config*.1*
+
+%files -n firewalld-test            
+%dir %{_datadir}/firewalld/testsuite            
+%{_datadir}/firewalld/testsuite/README            
+%{_datadir}/firewalld/testsuite/testsuite            
+%dir %{_datadir}/firewalld/testsuite/integration            
+%{_datadir}/firewalld/testsuite/integration/testsuite            
+%dir %{_datadir}/firewalld/testsuite/python            
+%{_datadir}/firewalld/testsuite/python/firewalld_config.py            
+%{_datadir}/firewalld/testsuite/python/firewalld_direct.py            
+%{_datadir}/firewalld/testsuite/python/firewalld_rich.py            
+%{_datadir}/firewalld/testsuite/python/firewalld_test.py
