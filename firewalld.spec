@@ -28,6 +28,7 @@ Requires:	ipset
 Requires:	python-nftables > 0.9.2-1
 Requires:	typelib(NM)
 Requires:	python3dist(pygobject)
+Recommends: python-libcap-ng
 Conflicts:	firewall-config < 0.9.3-2
 %systemd_requires
 
@@ -58,10 +59,19 @@ Summary:	Firewall configuration application
 Group:		System/Base
 Requires:	%{name} = %{EVRD}
 Requires:	hicolor-icon-theme
+Recommends: polkit
 
 %description -n firewall-config
 The firewall configuration application provides an configuration interface for
 %{name}.
+
+%package -n firewalld-test
+Summary:	Firewalld testsuite
+Group:		System/Base
+Requires:	%{name} = %{EVRD}
+
+%description -n firewalld-test            
+This package provides the firewalld testsuite.
 
 %prep
 %autosetup -p1
@@ -188,3 +198,15 @@ rm -rf %{buildroot}%{_datadir}/zsh
 %{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallConfig.gschema.xml
 %{_datadir}/metainfo/firewall-config.appdata.xml
 %{_mandir}/man1/firewall-config*.1*
+
+%files -n firewalld-test            
+%dir %{_datadir}/firewalld/testsuite            
+%{_datadir}/firewalld/testsuite/README            
+%{_datadir}/firewalld/testsuite/testsuite            
+%dir %{_datadir}/firewalld/testsuite/integration            
+%{_datadir}/firewalld/testsuite/integration/testsuite            
+%dir %{_datadir}/firewalld/testsuite/python            
+%{_datadir}/firewalld/testsuite/python/firewalld_config.py            
+%{_datadir}/firewalld/testsuite/python/firewalld_direct.py            
+%{_datadir}/firewalld/testsuite/python/firewalld_rich.py            
+%{_datadir}/firewalld/testsuite/python/firewalld_test.py
