@@ -67,6 +67,7 @@ The firewall configuration application provides an configuration interface for
 %autosetup -p1
 
 %build
+./autogen.sh
 %configure \
     --enable-sysconfig \
     --with-systemd-unitdir=%{_unitdir}
