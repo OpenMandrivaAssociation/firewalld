@@ -1,6 +1,6 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	1.0.0
+Version:	1.0.1
 Release:	1
 URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
@@ -125,7 +125,7 @@ rm -rf %{buildroot}%{_datadir}/zsh
 %systemd_preun firewalld.service
 
 %postun
-%systemd_postun_with_restart firewalld.service 
+%systemd_postun_with_restart firewalld.service
 
 %files -f %{name}.lang
 %doc README
