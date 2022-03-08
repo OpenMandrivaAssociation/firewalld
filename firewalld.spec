@@ -1,10 +1,10 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	1.0.3
+Version:	1.1.0
 Release:	1
-URL:		https://github.com/t-woerner/firewalld/
 License:	GPLv2+
 Group:		System/Base
+URL:		https://github.com/t-woerner/firewalld/
 Source0:	https://github.com/firewalld/firewalld/archive/%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
 # (tpg) try to keep nfs and samba enabled for default zones
@@ -28,7 +28,7 @@ Requires:	ipset
 Requires:	python-nftables > 0.9.2-1
 Requires:	typelib(NM)
 Requires:	python3dist(pygobject)
-Recommends: python-libcap-ng
+Recommends:	python-libcap-ng
 Conflicts:	firewall-config < 0.9.3-2
 %systemd_requires
 
@@ -59,7 +59,7 @@ Summary:	Firewall configuration application
 Group:		System/Base
 Requires:	%{name} = %{EVRD}
 Requires:	hicolor-icon-theme
-Recommends: polkit
+Recommends:	polkit
 
 %description -n firewall-config
 The firewall configuration application provides an configuration interface for
@@ -167,25 +167,20 @@ rm -rf %{buildroot}%{_datadir}/zsh
 %dir %{python_sitelib}/firewall/core/io
 %dir %{python_sitelib}/firewall/server
 %{python_sitelib}/firewall/*.py*
-%{python_sitelib}/firewall/__pycache__
 %{python_sitelib}/firewall/config/*.py*
-%{python_sitelib}/firewall/config/__pycache__
 %{python_sitelib}/firewall/core/*.py*
-%{python_sitelib}/firewall/core/__pycache__
 %{python_sitelib}/firewall/core/io/*.py*
-%{python_sitelib}/firewall/core/io/__pycache__
 %{python_sitelib}/firewall/server/*.py*
-%{python_sitelib}/firewall/server/__pycache__
-%{_mandir}/man1/firewall*cmd*.1*
-%{_mandir}/man1/%{name}*.1*
-%{_mandir}/man5/firewall*.5*
+%doc %{_mandir}/man1/firewall*cmd*.1*
+%doc %{_mandir}/man1/%{name}*.1*
+%doc %{_mandir}/man5/firewall*.5*
 
 %files -n firewall-applet
 %{_bindir}/firewall-applet
 %{_sysconfdir}/xdg/autostart/firewall-applet.desktop
 %{_sysconfdir}/firewall/applet.conf
 %{_datadir}/icons/hicolor/*/apps/firewall-applet*.*
-%{_mandir}/man1/firewall-applet*.1*
+%doc %{_mandir}/man1/firewall-applet*.1*
 
 %files -n firewall-config
 %{_bindir}/firewall-config
@@ -197,16 +192,16 @@ rm -rf %{buildroot}%{_datadir}/zsh
 %{_datadir}/icons/hicolor/*/apps/firewall-config*.*
 %{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallConfig.gschema.xml
 %{_datadir}/metainfo/firewall-config.appdata.xml
-%{_mandir}/man1/firewall-config*.1*
+%doc %{_mandir}/man1/firewall-config*.1*
 
-%files -n firewalld-test            
-%dir %{_datadir}/firewalld/testsuite            
-%{_datadir}/firewalld/testsuite/README            
-%{_datadir}/firewalld/testsuite/testsuite            
-%dir %{_datadir}/firewalld/testsuite/integration            
-%{_datadir}/firewalld/testsuite/integration/testsuite            
-%dir %{_datadir}/firewalld/testsuite/python            
-%{_datadir}/firewalld/testsuite/python/firewalld_config.py            
-%{_datadir}/firewalld/testsuite/python/firewalld_direct.py            
-%{_datadir}/firewalld/testsuite/python/firewalld_rich.py            
+%files -n firewalld-test
+%dir %{_datadir}/firewalld/testsuite
+%{_datadir}/firewalld/testsuite/README
+%{_datadir}/firewalld/testsuite/testsuite
+%dir %{_datadir}/firewalld/testsuite/integration
+%{_datadir}/firewalld/testsuite/integration/testsuite
+%dir %{_datadir}/firewalld/testsuite/python
+%{_datadir}/firewalld/testsuite/python/firewalld_config.py
+%{_datadir}/firewalld/testsuite/python/firewalld_direct.py
+%{_datadir}/firewalld/testsuite/python/firewalld_rich.py
 %{_datadir}/firewalld/testsuite/python/firewalld_test.py
