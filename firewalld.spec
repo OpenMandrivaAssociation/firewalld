@@ -1,7 +1,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	1.1.1
-Release:	2
+Version:	1.2.0
+Release:	1
 License:	GPLv2+
 Group:		System/Base
 URL:		https://github.com/t-woerner/firewalld/
@@ -128,7 +128,6 @@ rm -rf %{buildroot}%{_datadir}/zsh
 %systemd_postun_with_restart firewalld.service
 
 %files -f %{name}.lang
-%doc README
 %{_presetdir}/86-firewalld.preset
 %{_sbindir}/%{name}
 %{_bindir}/firewall-cmd
@@ -143,7 +142,7 @@ rm -rf %{buildroot}%{_datadir}/zsh
 %dir %{_prefix}/lib/%{name}/zones
 %{_prefix}/lib/%{name}/helpers/*.xml
 %{_prefix}/lib/%{name}/icmptypes/*.xml
-%{_prefix}/lib/%{name}/ipsets/README
+%{_prefix}/lib/%{name}/ipsets/README.md
 %{_prefix}/lib/%{name}/services/*.xml
 %{_prefix}/lib/%{name}/zones/*.xml
 %{_prefix}/lib/firewalld/policies/allow-host-ipv6.xml
@@ -196,8 +195,8 @@ rm -rf %{buildroot}%{_datadir}/zsh
 
 %files -n firewalld-test
 %dir %{_datadir}/firewalld/testsuite
-%{_datadir}/firewalld/testsuite/README
 %{_datadir}/firewalld/testsuite/testsuite
+%{_datadir}/firewalld/testsuite/README.md
 %dir %{_datadir}/firewalld/testsuite/integration
 %{_datadir}/firewalld/testsuite/integration/testsuite
 %dir %{_datadir}/firewalld/testsuite/python
