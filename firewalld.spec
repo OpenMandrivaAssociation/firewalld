@@ -1,7 +1,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
 Version:	1.2.0
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Base
 URL:		https://github.com/t-woerner/firewalld/
@@ -109,6 +109,8 @@ desktop-file-install --delete-original \
 
 # (tpg) not needed
 rm -rf %{buildroot}%{_datadir}/zsh
+
+rm -rf %{buildroot}%{prefix}/lib/firewalld/services/kodi-eventserver.xml
 
 %find_lang %{name} --all-name
 
