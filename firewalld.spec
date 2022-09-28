@@ -1,7 +1,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	1.2.0
-Release:	3
+Version:	1.2.1
+Release:	1
 License:	GPLv2+
 Group:		System/Base
 URL:		https://github.com/t-woerner/firewalld/
