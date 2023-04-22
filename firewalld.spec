@@ -1,11 +1,11 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	1.3.1
+Version:	1.3.2
 Release:	1
 License:	GPLv2+
 Group:		System/Base
 URL:		https://github.com/t-woerner/firewalld/
-Source0:	https://github.com/firewalld/firewalld/archive/%{name}-%{version}.tar.gz
+Source0:	https://github.com/firewalld/firewalld/releases/download/v%{version}/%{name}-%{version}.tar.bz2
 Source1:	%{name}.rpmlintrc
 # (tpg) try to keep nfs and samba enabled for default zones
 Patch1:		firewalld-0.3.13-enable-nfs-and-samba.patch
