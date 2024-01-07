@@ -205,4 +205,4 @@ rm -rf %{buildroot}%{_prefix}/lib/firewalld/services/kodi-eventserver.xml
 %{_datadir}/firewalld/testsuite/python/firewalld_config.py
 %{_datadir}/firewalld/testsuite/python/firewalld_direct.py
 %{_datadir}/firewalld/testsuite/python/firewalld_rich.py
-%{_datadir}/firewalld/testsuite/python/firewalld_test.py
+#{_datadir}/firewalld/testsuite/python/firewalld_test.py
