@@ -147,6 +147,7 @@ rm -rf %{buildroot}%{_prefix}/lib/firewalld/services/kodi-eventserver.xml
 %{_prefix}/lib/%{name}/ipsets/README.md
 %{_prefix}/lib/%{name}/services/*.xml
 %{_prefix}/lib/%{name}/zones/*.xml
+%{_prefix}/lib/firewalld/xmlschema/
 %{_prefix}/lib/firewalld/policies/allow-host-ipv6.xml
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
@@ -205,4 +206,4 @@ rm -rf %{buildroot}%{_prefix}/lib/firewalld/services/kodi-eventserver.xml
 %{_datadir}/firewalld/testsuite/python/firewalld_config.py
 %{_datadir}/firewalld/testsuite/python/firewalld_direct.py
 %{_datadir}/firewalld/testsuite/python/firewalld_rich.py
-#{_datadir}/firewalld/testsuite/python/firewalld_test.py
+%{_datadir}/firewalld/testsuite/python/firewalld_misc.py
