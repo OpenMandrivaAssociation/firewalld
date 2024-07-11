@@ -1,6 +1,6 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	2.1.2
+Version:	2.2.0
 Release:	1
 License:	GPLv2+
 Group:		System/Base
