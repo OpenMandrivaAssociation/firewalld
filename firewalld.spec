@@ -151,7 +151,7 @@ rm -rf %{buildroot}%{_prefix}/lib/firewalld/services/kodi-eventserver.xml
 %{_prefix}/lib/firewalld/policies/allow-host-ipv6.xml
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
-%config(noreplace) %{_sysconfdir}/%{name}/lockdown-whitelist.xml
+#config(noreplace) %{_sysconfdir}/%{name}/lockdown-whitelist.xml
 %dir %{_sysconfdir}/%{name}/icmptypes
 %dir %{_sysconfdir}/%{name}/services
 %dir %{_sysconfdir}/%{name}/zones
