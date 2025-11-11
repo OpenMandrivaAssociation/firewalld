@@ -148,6 +148,7 @@ rm -rf %{buildroot}%{_prefix}/lib/firewalld/services/kodi-eventserver.xml
 %{_prefix}/lib/%{name}/services/*.xml
 %{_prefix}/lib/%{name}/zones/*.xml
 %{_prefix}/lib/firewalld/xmlschema/
+%{_prefix}/lib/firewalld/policies/gateway-*
 %{_prefix}/lib/firewalld/policies/allow-host-ipv6.xml
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
