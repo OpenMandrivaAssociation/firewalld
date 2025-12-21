@@ -10,6 +10,10 @@ Source1:	%{name}.rpmlintrc
 # (tpg) try to keep nfs and samba enabled for default zones
 Patch1:		firewalld-0.3.13-enable-nfs-and-samba.patch
 BuildArch:	noarch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
 BuildRequires:  make
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
