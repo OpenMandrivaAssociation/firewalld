@@ -199,7 +199,7 @@ rm -rf %{buildroot}%{_prefix}/lib/firewalld/services/kodi-eventserver.xml
 %{_datadir}/applications/firewall-config.desktop
 %{_datadir}/icons/hicolor/*/apps/firewall-config*.*
 %{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallConfig.gschema.xml
-%{_datadir}/metainfo/firewall-config.appdata.xml
+%{_datadir}/metainfo/org.firewalld.firewall-config.metainfo.xm
 %doc %{_mandir}/man1/firewall-config*.1*
 
 %files -n firewalld-test
