@@ -1,7 +1,7 @@
 Summary:	A dynamic firewall daemon
 Name:		firewalld
-Version:	2.3.0
-Release:	1
+Version:	2.4.3
+Release:	2
 License:	GPLv2+
 Group:		System/Base
 URL:		https://github.com/t-woerner/firewalld/
@@ -9,7 +9,21 @@ Source0:	https://github.com/firewalld/firewalld/releases/download/v%{version}/%{
 Source1:	%{name}.rpmlintrc
 # (tpg) try to keep nfs and samba enabled for default zones
 Patch1:		firewalld-0.3.13-enable-nfs-and-samba.patch
+# (Angry-P) Set MemoryDenyWriteExecute=no in firewalld.service.in.
+# Python JIT compiler requires the ability
+# to map memory segments as both writable and executable.
+# With MemoryDenyWriteExecute enabled, systemd blocks this behavior,
+# causing firewalld to immediately crash on startup with a 
+# "RuntimeWarning: JIT unable to protect executable memory (13)" 
+# and exit with status 1/FAILURE.
+Patch2:		firewalld-python3-jit-fix.patch
+
 BuildArch:	noarch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:  make
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	intltool
@@ -59,6 +73,7 @@ Summary:	Firewall configuration application
 Group:		System/Base
 Requires:	%{name} = %{EVRD}
 Requires:	hicolor-icon-theme
+Requires:	%{_lib}gtk-gir3.0
 Recommends:	polkit
 
 %description -n firewall-config
@@ -148,6 +163,7 @@ rm -rf %{buildroot}%{_prefix}/lib/firewalld/services/kodi-eventserver.xml
 %{_prefix}/lib/%{name}/services/*.xml
 %{_prefix}/lib/%{name}/zones/*.xml
 %{_prefix}/lib/firewalld/xmlschema/
+%{_prefix}/lib/firewalld/policies/gateway-*
 %{_prefix}/lib/firewalld/policies/allow-host-ipv6.xml
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
@@ -193,7 +209,7 @@ rm -rf %{buildroot}%{_prefix}/lib/firewalld/services/kodi-eventserver.xml
 %{_datadir}/applications/firewall-config.desktop
 %{_datadir}/icons/hicolor/*/apps/firewall-config*.*
 %{_datadir}/glib-2.0/schemas/org.fedoraproject.FirewallConfig.gschema.xml
-%{_datadir}/metainfo/firewall-config.appdata.xml
+%{_datadir}/metainfo/org.firewalld.firewall-config.metainfo.xml
 %doc %{_mandir}/man1/firewall-config*.1*
 
 %files -n firewalld-test
