@@ -19,6 +19,8 @@ Patch1:		firewalld-0.3.13-enable-nfs-and-samba.patch
 Patch2:		firewalld-python3-jit-fix.patch
 
 BuildArch:	noarch
+# firewall-applet needs python-qt5, which is still Python 3.14.
+%bcond applet 0
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool-base
@@ -41,14 +43,18 @@ Requires:	iptables-nft
 Requires:	ipset
 Requires:	python-nftables > 0.9.2-1
 Requires:	typelib(NM)
-Requires:	python3dist(pygobject)
+Requires:	python%{pyver}dist(pygobject)
 Recommends:	python-libcap-ng
+%if !%{with applet}
+Obsoletes:	firewall-applet < %{EVRD}
+%endif
 Conflicts:	firewall-config < 0.9.3-2
 %systemd_requires
 
 %description
 A firewall service daemon with D-BUS interface managing a dynamic firewall.
 
+%if %{with applet}
 %package -n firewall-applet
 Summary:	Firewall panel applet
 Group:		System/Base
@@ -67,6 +73,7 @@ Requires:	typelib(GdkPixbuf)
 %description -n firewall-applet
 The firewall panel applet provides a status information of %{name} and also
 the firewall settings.
+%endif
 
 %package -n firewall-config
 Summary:	Firewall configuration application
@@ -92,6 +99,10 @@ This package provides the firewalld testsuite.
 %autosetup -p1
 
 %build
+# slibtool's AC_PROG_AR runs before the host triplet is known.
+export AR=ar
+export RANLIB=ranlib
+export NM=nm
 ./autogen.sh
 %configure \
     --enable-sysconfig \
@@ -114,9 +125,17 @@ cat > %{buildroot}%{_presetdir}/86-firewalld.preset << EOF
 enable firewalld.service
 EOF
 
+%if %{with applet}
 desktop-file-install --delete-original \
   --dir %{buildroot}%{_sysconfdir}/xdg/autostart \
   %{buildroot}%{_sysconfdir}/xdg/autostart/firewall-applet.desktop
+%else
+rm -f %{buildroot}%{_bindir}/firewall-applet
+rm -f %{buildroot}%{_sysconfdir}/xdg/autostart/firewall-applet.desktop
+rm -f %{buildroot}%{_sysconfdir}/firewall/applet.conf
+rm -f %{buildroot}%{_datadir}/icons/hicolor/*/apps/firewall-applet*
+rm -f %{buildroot}%{_mandir}/man1/firewall-applet*
+%endif
 
 desktop-file-install --delete-original \
   --dir %{buildroot}%{_datadir}/applications \
@@ -193,12 +212,14 @@ rm -rf %{buildroot}%{_prefix}/lib/firewalld/services/kodi-eventserver.xml
 %doc %{_mandir}/man1/%{name}*.1*
 %doc %{_mandir}/man5/firewall*.5*
 
+%if %{with applet}
 %files -n firewall-applet
 %{_bindir}/firewall-applet
 %{_sysconfdir}/xdg/autostart/firewall-applet.desktop
 %{_sysconfdir}/firewall/applet.conf
 %{_datadir}/icons/hicolor/*/apps/firewall-applet*.*
 %doc %{_mandir}/man1/firewall-applet*.1*
+%endif
 
 %files -n firewall-config
 %{_bindir}/firewall-config
